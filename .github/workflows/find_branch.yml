@@ -10,7 +10,7 @@ jobs:
       - name: checkout source code
         uses: actions/checkout@v2
       - run: sleep 4
-   bumpDepsOnlyIfMain:
+ bumpDepsOnlyIfMain:
     runs-on: ubuntu-latest
     needs: releaseCode
     steps:
