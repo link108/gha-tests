@@ -15,10 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: git branch --show-current
+      - run: |
+          blah=test
+          echo $blah
+          echo blah=$blah >> $GITHUB_ENV
+          echo blah ${{ env.blah }}
       - name: Get Branch
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
-          echo "raw: $raw"
+          echo raw=$raw >> $GITHUB_ENV
+          echo "raw: ${{ env.raw }}"
           branch=${raw/origin\/}
           echo branch=$branch >> $GITHUB_ENV
           echo "Branch: $branch"
