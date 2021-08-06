@@ -23,12 +23,14 @@ jobs:
       - name: Get Branch
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
+          echo "action_state=$raw" >> $GITHUB_ENV
           echo raw=$raw >> $GITHUB_ENV
           echo "raw: ${{ env.RAW }}"
           branch=${raw/origin\/}
           echo branch=$branch >> $GITHUB_ENV
           echo "Branch: $branch"
       - run: echo "Branch ${{ env.BRANCH }}"
+      - run: echo "action_state ${{ env.action_state }}"
       - name: Pause always
         run: sleep 3
       - name: Pause - only main
