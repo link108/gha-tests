@@ -26,7 +26,8 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
-      - run: echo $(git symbolic-ref --short HEAD)
+      - run: echo "branch="$(git symbolic-ref --short HEAD) >> $GITHUB_ENV
+      - run: echo ${{ env.branch }}
   releaseCode:
     runs-on: ubuntu-latest
     steps:
