@@ -19,10 +19,11 @@ jobs:
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           branch=${raw/origin\/}
-          echo "branch=$branch" >> $GITHUB_ENV
-      - run: echo ${{ env.BRANCH }}
+          echo branch=$branch >> $GITHUB_ENV
+          echo "Branch: x $branch x"
+      - run: echo "Branch ${{ env.branch }}"
       - name: Pause always
-        run: sleep 6
+        run: sleep 3
       - name: Pause - only main
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ contains(env.branch, 'origin/main')}}
         run: sleep 9
