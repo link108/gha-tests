@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Get Branch
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
