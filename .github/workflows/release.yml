@@ -16,11 +16,11 @@ jobs:
       - uses: actions/checkout@v2
       - run: git branch --show-current
       - run: |
-          blah=test
+          blah=${{ github.ref}}
           echo $blah
           echo "blah=${blah}" >> $GITHUB_ENV
           echo blah ${{ env.BLAH }}
-      - name: Get Branch
+      - name: set env vars
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           echo "ACTION_STATE=$raw" >> $GITHUB_ENV
@@ -37,6 +37,7 @@ jobs:
           echo "ACTION_STATE ${{ env.ACTION_STATE }}"
           echo "action_state_hardcoded ${{ env.action_state_hardcoded }}"
           echo "RAW github env var ${{ env.RAW }}"
+          echo "blah env var ${{ env.blah }}"
       - name: Pause always
         run: sleep 3
       - name: Pause - only main
