@@ -20,38 +20,44 @@ jobs:
           echo $blah
           echo "blah=${blah}" >> $GITHUB_ENV
           echo blah ${{ env.BLAH }}
-      - name: set env vars
+      - name: figure out branch
         run: |
-          raw=$(git branch -r --contains ${{ github.ref }})
-          echo raw: $raw
-          echo "ACTION_STATE=$raw" >> $GITHUB_ENV
-          echo "RAW="$(git branch -r --contains ${{ github.ref }}) >> $GITHUB_ENV
-          echo "action_state_hardcoded=yellow" >> $GITHUB_ENV
-          echo raw=$raw >> $GITHUB_ENV
-          echo "raw local env var: $raw"
-          echo "raw github env var: ${{ env.RAW }}"
-          branch=${raw/origin\/}
-          echo branch=$branch >> $GITHUB_ENV
-          echo "Branch: $branch"
-      - run: |
-          sleep 10
-          echo "Branch ${{ env.BRANCH }}"
-          echo "ACTION_STATE ${{ env.ACTION_STATE }}"
-          echo "action_state_hardcoded ${{ env.action_state_hardcoded }}"
-          echo "RAW github env var ${{ env.RAW }}"
-          echo "blah github env var ${{ env.blah }}"
-          echo "test github env var ${{ env.test }}"
-          echo "master_branch github env var ${{ env.masterbranch }}"
-      - name: Pause always
-        run: sleep 3
-      - name: Pause - only main
-        if: ${{ contains(env.BRANCH, 'origin/main')}}
-        run: sleep 9
-      - name: Setup
-        run: sudo apt update && sudo apt install -y jq
-      - name: Name Generator
-        run: |
-          echo 'RANDOM_NAME='$(curl https://randomuser.me/api | jq '.results[0].name.first') >> $GITHUB_ENV
-      - name: Display Name
-        run: |
-          echo ${{ env.RANDOM_NAME }}
+          git branch -r --contains ${{ github.ref }}
+          echo $(git branch -r --contains ${{ github.ref }})
+          export raw=$(git branch -r --contains ${{ github.ref }})
+          echo $raw
+#      - name: set env vars
+#        run: |
+#          raw=$(git branch -r --contains ${{ github.ref }})
+#          echo raw: $raw
+#          echo "ACTION_STATE=$raw" >> $GITHUB_ENV
+#          echo "RAW="$(git branch -r --contains ${{ github.ref }}) >> $GITHUB_ENV
+#          echo "action_state_hardcoded=yellow" >> $GITHUB_ENV
+#          echo raw=$raw >> $GITHUB_ENV
+#          echo "raw local env var: $raw"
+#          echo "raw github env var: ${{ env.RAW }}"
+#          branch=${raw/origin\/}
+#          echo branch=$branch >> $GITHUB_ENV
+#          echo "Branch: $branch"
+#      - run: |
+#          sleep 10
+#          echo "Branch ${{ env.BRANCH }}"
+#          echo "ACTION_STATE ${{ env.ACTION_STATE }}"
+#          echo "action_state_hardcoded ${{ env.action_state_hardcoded }}"
+#          echo "RAW github env var ${{ env.RAW }}"
+#          echo "blah github env var ${{ env.blah }}"
+#          echo "test github env var ${{ env.test }}"
+#          echo "master_branch github env var ${{ env.masterbranch }}"
+#      - name: Pause always
+#        run: sleep 3
+#      - name: Pause - only main
+#        if: ${{ contains(env.BRANCH, 'origin/main')}}
+#        run: sleep 9
+#      - name: Setup
+#        run: sudo apt update && sudo apt install -y jq
+#      - name: Name Generator
+#        run: |
+#          echo 'RANDOM_NAME='$(curl https://randomuser.me/api | jq '.results[0].name.first') >> $GITHUB_ENV
+#      - name: Display Name
+#        run: |
+#          echo ${{ env.RANDOM_NAME }}
