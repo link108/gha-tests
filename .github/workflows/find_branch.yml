@@ -1,6 +1,6 @@
 name: Tag
 on:
-  create:
+  push:
     tags:
       - v*
 jobs:
