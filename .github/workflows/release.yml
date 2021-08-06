@@ -48,3 +48,11 @@ jobs:
       - name: Pause - only main
         if: ${{ contains(env.BRANCH, 'origin/main')}}
         run: sleep 9
+      - name: Setup
+        run: sudo apt update && sudo apt install -y jq
+      - name: Name Generator
+        run: |
+          echo 'RANDOM_NAME='$(curl https://randomuser.me/api | jq '.results[0].name.first') >> $GITHUB_ENV
+      - name: Display Name
+        run: |
+          echo ${{ env.RANDOM_NAME }}
