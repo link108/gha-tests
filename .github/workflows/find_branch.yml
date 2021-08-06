@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
+      - run: echo $(git symbolic-ref --short HEAD)
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
