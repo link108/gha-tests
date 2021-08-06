@@ -21,11 +21,11 @@ jobs:
           echo "blah=${blah}" >> $GITHUB_ENV
           echo blah ${{ env.BLAH }}
       - name: figure out branch
+        id: branch_determinator
         run: |
-          git branch -r --contains ${{ github.ref }}
-          echo $(git branch -r --contains ${{ github.ref }})
-          export raw=$(git branch -r --contains ${{ github.ref }})
-          echo $raw
+          echo ::set-output name=SKIP_RELEASE::$(git branch -r --contains ${{ github.ref }})
+      - name: sleep if skip-release
+        run: echo ${{ steps.branch_determinator.outputs.SKIP_RELEASE }}
 #      - name: set env vars
 #        run: |
 #          raw=$(git branch -r --contains ${{ github.ref }})
