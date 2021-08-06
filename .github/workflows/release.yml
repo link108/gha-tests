@@ -19,18 +19,18 @@ jobs:
           blah=test
           echo $blah
           echo "blah=${blah}" >> $GITHUB_ENV
-          echo blah ${{ env.blah }}
+          echo blah ${{ env.BLAH }}
       - name: Get Branch
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
           echo raw=$raw >> $GITHUB_ENV
-          echo "raw: ${{ env.raw }}"
+          echo "raw: ${{ env.RAW }}"
           branch=${raw/origin\/}
           echo branch=$branch >> $GITHUB_ENV
           echo "Branch: $branch"
-      - run: echo "Branch ${{ env.branch }}"
+      - run: echo "Branch ${{ env.BRANCH }}"
       - name: Pause always
         run: sleep 3
       - name: Pause - only main
-        if: ${{ contains(env.branch, 'origin/main')}}
+        if: ${{ contains(env.BRANCH, 'origin/main')}}
         run: sleep 9
