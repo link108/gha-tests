@@ -18,7 +18,7 @@ jobs:
       - run: |
           blah=test
           echo $blah
-          echo blah=$blah >> $GITHUB_ENV
+          echo "blah=${blah}" >> $GITHUB_ENV
           echo blah ${{ env.blah }}
       - name: Get Branch
         run: |
