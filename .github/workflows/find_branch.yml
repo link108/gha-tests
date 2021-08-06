@@ -15,6 +15,9 @@ jobs:
           branch=${raw/origin\/}
           echo BRANCH=$branch >> $GITHUB_ENV
       - run: echo ${{ env.BRANCH }}
+      - name: if step
+        if: ${{ env.BRANCH == 'main' }}
+        run: sleep 4
   job2:
     runs-on: ubuntu-latest
     steps:
