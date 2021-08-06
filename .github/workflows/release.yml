@@ -27,7 +27,8 @@ jobs:
           echo "RAW=$(git branch -r --contains ${{ github.ref }})" >> $GITHUB_ENV
           echo "action_state_hardcoded=yellow" >> $GITHUB_ENV
           echo raw=$raw >> $GITHUB_ENV
-          echo "raw: ${{ env.RAW }}"
+          echo "raw local env var: $raw"
+          echo "raw github env var: ${{ env.RAW }}"
           branch=${raw/origin\/}
           echo branch=$branch >> $GITHUB_ENV
           echo "Branch: $branch"
@@ -35,7 +36,7 @@ jobs:
           echo "Branch ${{ env.BRANCH }}"
           echo "ACTION_STATE ${{ env.ACTION_STATE }}"
           echo "action_state_hardcoded ${{ env.action_state_hardcoded }}"
-          echo "RAW ${{ env.RAW }}"
+          echo "RAW github env var ${{ env.RAW }}"
       - name: Pause always
         run: sleep 3
       - name: Pause - only main
