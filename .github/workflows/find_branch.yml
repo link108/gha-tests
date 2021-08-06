@@ -4,17 +4,29 @@ on:
     tags:
       - v*
 jobs:
-  getBranchName:
+  refParse:
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
-        uses: actions/checkout@v2
-      - run: echo $(git symbolic-ref --short HEAD)
+        uses: actions/checkout@v1
+      - run: echo "branch="$(git rev-parse --abbrev-ref HEAD) >> $GITHUB_ENV
+      - run: echo ${{ env.branch }}
+  echoGithubRefsHead:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v1
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
       - run: echo ${{ steps.extract_branch.outputs.branch }}
+  symbolicRef:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v1
+      - run: echo $(git symbolic-ref --short HEAD)
   releaseCode:
     runs-on: ubuntu-latest
     steps:
