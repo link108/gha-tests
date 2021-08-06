@@ -18,9 +18,10 @@ jobs:
       - name: Get Branch
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
+          echo "raw: $raw"
           branch=${raw/origin\/}
           echo branch=$branch >> $GITHUB_ENV
-          echo "Branch: x $branch x"
+          echo "Branch: $branch"
       - run: echo "Branch ${{ env.branch }}"
       - name: Pause always
         run: sleep 3
