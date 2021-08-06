@@ -20,6 +20,6 @@ jobs:
           java-version: 11
       - name: Pause before dependency bump
         run: sleep 6
-      - name: Pause before dependency bump - only master
-        if: {{ github.ref == 'ref/head/master' }}
+      - name: Pause before dependency bump - only main
+        if: {{ github.ref == 'ref/head/main' }}
         run: sleep 9
