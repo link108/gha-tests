@@ -15,11 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: git branch --show-current
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Pause before dependency bump
+      - name: Get Branch
+          run: |
+            raw=$(git branch -r --contains ${{ github.ref }})
+            branch=${raw/origin\/}
+            echo ::set-env name=BRANCH::$branch
+        - run: echo ${{ env.BRANCH }}
+      - name: Pause always
         run: sleep 6
-      - name: Pause before dependency bump - only main
+      - name: Pause - only main
         if: ${{ github.ref == 'refs/heads/main' }}
         run: sleep 9
