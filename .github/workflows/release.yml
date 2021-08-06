@@ -20,6 +20,8 @@ jobs:
           echo $blah
           echo "blah=${blah}" >> $GITHUB_ENV
           echo blah ${{ env.BLAH }}
+      - run: |
+          echo "test=$(git branch -r --contains ${{ github.ref }})" >> $GITHUB_ENV
       - name: set env vars
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
@@ -33,11 +35,13 @@ jobs:
           echo branch=$branch >> $GITHUB_ENV
           echo "Branch: $branch"
       - run: |
+          sleep 10
           echo "Branch ${{ env.BRANCH }}"
           echo "ACTION_STATE ${{ env.ACTION_STATE }}"
           echo "action_state_hardcoded ${{ env.action_state_hardcoded }}"
           echo "RAW github env var ${{ env.RAW }}"
-          echo "blah env var ${{ env.blah }}"
+          echo "blah github env var ${{ env.blah }}"
+          echo "test github env var ${{ env.test }}"
       - name: Pause always
         run: sleep 3
       - name: Pause - only main
