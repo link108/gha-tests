@@ -20,8 +20,6 @@ jobs:
           echo $blah
           echo "blah=${blah}" >> $GITHUB_ENV
           echo blah ${{ env.BLAH }}
-      - run: |
-          [[ $(git branch -r --contains refs/tags/v0.1.0 | grep origin/main  | wc -l) -gt 0 ]] && echo "master_branch=false" >> $GITHUB_ENV
       - name: set env vars
         run: |
           raw=$(git branch -r --contains ${{ github.ref }})
