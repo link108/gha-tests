@@ -4,8 +4,15 @@ on:
     tags:
       - v*
 jobs:
-  job1:
+  releaseCode:
     runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v2
+      - run: sleep 4
+  bumpDepsOnlyIfMain:
+    runs-on: ubuntu-latest
+    needs: releaseCode
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
@@ -18,10 +25,3 @@ jobs:
       - name: if step
         if: ${{ contains(env.BRANCH, 'main')}}
         run: sleep 4
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-      - name: checkout source code
-        uses: actions/checkout@v2
-      - run: sleep 4
