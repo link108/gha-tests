@@ -21,4 +21,5 @@ jobs:
       - name: Pause before dependency bump
         run: sleep 6
       - name: Pause before dependency bump - only master
+        if: {{ github.ref == 'ref/head/master' }}
         run: sleep 9
