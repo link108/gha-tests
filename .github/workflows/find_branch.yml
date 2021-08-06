@@ -15,3 +15,9 @@ jobs:
           branch=${raw/origin\/}
           echo BRANCH=$branch >> $GITHUB_ENV
       - run: echo ${{ env.BRANCH }}
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v2
+      - run: sleep 4
