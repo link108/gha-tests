@@ -4,6 +4,13 @@ on:
     tags:
       - v*
 jobs:
+  getBranchName:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
   releaseCode:
     runs-on: ubuntu-latest
     steps:
