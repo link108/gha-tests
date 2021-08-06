@@ -39,3 +39,15 @@ jobs:
           branch=${raw/origin\/}
           echo BRANCH=$branch >> $GITHUB_ENV
       - run: echo ${{ env.BRANCH }}
+  checkoutV2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v2
+      - run: git fetch --prune --unshallow
+      - name: Get Branch
+        run: |
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw/origin\/}
+          echo BRANCH=$branch >> $GITHUB_ENV
+      - run: echo ${{ env.BRANCH }}
