@@ -1,0 +1,16 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "branch-specific-[0-9]+"
+
+env:
+  GRADLE_OPTS: -Dorg.gradle.daemon=false -Xmx2g -Xms2g
+
+jobs:
+  releaseCode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: alwaysRun
+        run: echo "main"
